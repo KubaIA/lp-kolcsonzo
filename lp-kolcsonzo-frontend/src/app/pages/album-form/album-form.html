@@ -1,0 +1,168 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4 text-center" *ngIf="mode === 'create'">Új album hozzáadása</h2>
+  <h2 class="mb-4 text-center" *ngIf="mode === 'edit'">Album szerkesztése</h2>
+
+  <form [formGroup]="albumForm" class="p-4 border rounded shadow-sm bg-light">
+
+    <!-- TITLE -->
+    <div class="mb-3">
+      <label class="form-label">Cím</label>
+      <input 
+        type="text" 
+        class="form-control"
+        formControlName="title"
+        [class.is-invalid]="isFieldInvalid('title')"
+      />
+      <div class="invalid-feedback d-block" *ngIf="isFieldInvalid('title')">
+        A cím megadása kötelező.
+      </div>
+    </div>
+
+    <!-- ARTIST -->
+    <div class="mb-3">
+      <label class="form-label">Előadó</label>
+      <input 
+        type="text" 
+        class="form-control"
+        formControlName="artist"
+        [class.is-invalid]="isFieldInvalid('artist')"
+      />
+      <div class="invalid-feedback d-block" *ngIf="isFieldInvalid('artist')">
+        Az előadó megadása kötelező.
+      </div>
+    </div>
+
+    <!-- YEAR -->
+    <div class="mb-3">
+      <label class="form-label">Év</label>
+      <input 
+        type="text" 
+        class="form-control"
+        formControlName="year"
+        placeholder="YYYY (pl. 2024)"
+        maxlength="4"
+        [class.is-invalid]="isFieldInvalid('year')"
+      />
+      <div class="invalid-feedback d-block" *ngIf="albumForm.get('year')?.hasError('required')">
+        Az év megadása kötelező.
+      </div>
+      <div class="invalid-feedback d-block" *ngIf="albumForm.get('year')?.hasError('pattern')">
+        Az évnek 4 jegyű számnak kell lennie (pl. 2024).
+      </div>
+    </div>
+
+    <!-- GENRE -->
+    <div class="mb-3">
+      <label class="form-label">Műfaj</label>
+      <input 
+        type="text" 
+        class="form-control"
+        formControlName="genre"
+        [class.is-invalid]="isFieldInvalid('genre')"
+      />
+      <div class="invalid-feedback d-block" *ngIf="isFieldInvalid('genre')">
+        A műfaj megadása kötelező.
+      </div>
+    </div>
+
+    <!-- TRACKS -->
+    <div formArrayName="tracks" class="mt-4">
+      <h4>Számok</h4>
+
+      <div 
+        *ngFor="let trackControl of tracks.controls; let i = index" 
+        [formGroupName]="i"
+        class="row g-2 align-items-center mb-3 p-2 border rounded"
+      >
+        <div class="col-md-6">
+          <label class="form-label small">Szám címe</label>
+          <input 
+            type="text" 
+            class="form-control"
+            formControlName="title"
+            placeholder="Szám címe"
+            [class.is-invalid]="trackControl.get('title')?.invalid && trackControl.get('title')?.touched"
+          />
+          <div class="invalid-feedback d-block" *ngIf="trackControl.get('title')?.hasError('required') && trackControl.get('title')?.touched">
+            A szám címe kötelező.
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label small">Hossz</label>
+          <input 
+            type="text" 
+            class="form-control"
+            formControlName="length"
+            placeholder="Hossz (pl. 4:12)"
+            [class.is-invalid]="trackControl.get('length')?.invalid && trackControl.get('length')?.touched"
+          />
+          <div class="invalid-feedback d-block" *ngIf="trackControl.get('length')?.hasError('required') && trackControl.get('length')?.touched">
+            A szám hossza kötelező.
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="trackControl.get('length')?.hasError('pattern') && trackControl.get('length')?.touched">
+            A hossznak MM:SS formátumban kell lennie (pl. 4:12).
+          </div>
+        </div>
+
+        <div class="col-md-2 text-end">
+          <button 
+            *ngIf="mode === 'edit'" 
+            type="button" 
+            class="btn btn-outline-danger btn-sm"
+            (click)="removeTrack(i)"
+          >
+            X
+          </button>
+        </div>
+      </div>
+
+      <!-- Add track -->
+      <button 
+        type="button" 
+        class="btn btn-outline-primary mt-2"
+        (click)="addTrack()"
+      >
+        Új szám hozzáadása
+      </button>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="d-flex gap-2 mt-4">
+
+      <!-- CREATE -->
+      <button 
+        *ngIf="mode === 'create'" 
+        type="button" 
+        class="btn btn-success"
+        (click)="saveNewAlbum()"
+        [disabled]="albumForm.invalid"
+      >
+        Hozzáadás
+      </button>
+
+      <!-- EDIT -->
+      <button 
+        *ngIf="mode === 'edit'" 
+        type="button" 
+        class="btn btn-warning"
+        (click)="updateAlbum()"
+        [disabled]="albumForm.invalid"
+      >
+        Módosítás
+      </button>
+
+      <!-- CANCEL -->
+      <button 
+        type="button" 
+        class="btn btn-secondary"
+        (click)="cancel()"
+      >
+        Mégsem
+      </button>
+
+    </div>
+
+  </form>
+</div>

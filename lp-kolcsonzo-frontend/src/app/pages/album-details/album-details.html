@@ -1,0 +1,31 @@
+<div class="container mt-4" *ngIf="album as a">
+  <h2>{{ a.title }}</h2>
+
+  <p><strong>Előadó:</strong> {{ a.artist }}</p>
+  <p><strong>Év:</strong> {{ a.year }}</p>
+  <p><strong>Műfaj:</strong> {{ a.genre }}</p>
+
+  <h3 class="mt-4">Trackek</h3>
+
+  <ul class="list-group" *ngIf="(a.tracks?.length ?? 0) > 0; else noTracks">
+    <li class="list-group-item" *ngFor="let track of (a.tracks ?? [])">
+      <strong>{{ track.title }}</strong>
+      <span class="text-muted">({{ track.length }})</span>
+    </li>
+  </ul>
+
+  <ng-template #noTracks>
+    <p>Nincsenek trackek ehhez az albumhoz.</p>
+  </ng-template>
+
+  <div class="button-group mt-4 d-flex gap-2">
+    <a routerLink="/albums" class="btn btn-secondary">Vissza</a>
+    <button [routerLink]="['/albums', album.id, 'edit']" class="btn btn-warning">Szerkesztés</button>
+    <button (click)="deleteAlbum()" class="btn btn-danger">Törlés</button>
+  </div>
+
+</div>
+
+<div *ngIf="!album">
+  <p>Betöltés...</p>
+</div>

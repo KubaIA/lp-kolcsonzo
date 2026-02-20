@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h2>Albumok</h2>
+  <button routerLink="/albums/new" class="btn btn-success mb-3">Új album hozzáadása</button>
+
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Cím</th>
+        <th>Előadó</th>
+        <th>Év</th>
+        <th>Műfaj</th>
+        <th>Műveletek</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let album of albums">
+        <td>{{ album.title }}</td>
+        <td>{{ album.artist }}</td>
+        <td>{{ album.year }}</td>
+        <td>{{ album.genre }}</td>
+        <td>
+          <a [routerLink]="['/albums', album.id]" class="btn btn-primary">Részletek</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
