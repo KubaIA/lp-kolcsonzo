@@ -1,0 +1,20 @@
+# --- FRONTEND (Angular) ---
+node_modules/
+dist/
+.angular/
+
+# --- BACKEND (.NET) ---
+bin/
+obj/
+.vs/
+
+# --- OS FILES ---
+.DS_Store
+Thumbs.db
+
+# --- LOGS ---
+*.log
+
+# --- MISC ---
+*.user
+*.tmp
