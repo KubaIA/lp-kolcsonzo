@@ -14,9 +14,9 @@ A projekt egy közös mappában található, így könnyen kezelhető és docker
 
 lp-kolcsonzo/
 │
-├── LpKolcsonzoBackend/        # .NET 8 Web API backend
+├── backend/        # .NET 8 Web API backend
 │
-├── lp-kolcsonzo-frontend/     # Angular 17 frontend
+├── frontend/     # Angular 17 frontend
 │
 ├── database/
 │   └── sample-data/
@@ -47,7 +47,7 @@ A backend egy ASP.NET 8 Web API.
 - MongoDB fut a gépen
 
 ### Indítás:
-cd LpKolcsonzoBackend
+cd backend
 dotnet restore
 dotnet run
 
@@ -77,7 +77,7 @@ A frontend Angular 17 alapú, Bootstrap 5-tel.
 - Angular CLI (opcionális)
 
 ### Indítás:
-cd lp-kolcsonzo-frontend
+cd frontend
 npm install
 npm start
 

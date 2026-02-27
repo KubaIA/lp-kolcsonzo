@@ -33,7 +33,7 @@ mongodb://localhost:27017
 
 ## 3. Backend telepítése és futtatása
 1. Lépj be a backend mappába:
-cd LpKolcsonzoBackend
+cd backend
 2. Telepítsd a csomagokat:
 dotnet restore
 3. Indítsd el:
@@ -45,7 +45,7 @@ http://localhost:5146
 
 ## 4. Frontend telepítése és futtatása
 1. Lépj be a frontend mappába:
-cd lp-kolcsonzo-frontend
+cd frontend
 2. Telepítsd a csomagokat:
 npm install
 3. Indítsd el:
