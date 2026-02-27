@@ -1,4 +1,4 @@
-name: Backend Build and Push
+name: Backend Build and Push to ghcr
 
 on:
   push:
