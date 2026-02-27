@@ -120,4 +120,4 @@ A projekt készen áll arra, hogy:
 A backend, frontend és adatbázis külön-külön is futtatható, de együtt adják ki a teljes alkalmazást.
 
 Készítette: 
-ZVATRS 2026
+JLCQOR, ZVATRS 2026
