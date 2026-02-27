@@ -1,50 +1,70 @@
-How to indtall argocd to kubernetes:  
+## ArgoCD telepítése Kubernetes környezetbe
 
-from a terminal:  
+### 1. Namespace létrehozása
 
-Create namespace  
-```  
-kubectl create namespace argocd  
-```  
+Terminálban hozd létre az ArgoCD számára szükséges namespace-et:
 
-Install AgroCD  
+```
+kubectl create namespace argocd
+```
 
-```  
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml  
-```  
-Patch the service to use NodePort  
+### 2. ArgoCD telepítése
 
-```  
-kubectl patch svc argocd-server -n argocd -p '{\"spec\": {\"type\": \"NodePort\"}}'  
-```  
-To get the port run this command  
+Telepítsd az ArgoCD komponenseket a hivatalos manifest használatával:
 
-```  
-kubectl get svc -n argocd argocd-server  
-```  
+```
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
 
-This will show like:  
-NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
-argocd-server   NodePort   10.43.97.127   <none>        80:32489/TCP,443:32583/TCP   8m4s
+### 3. Szolgáltatás módosítása NodePort típusra
 
-then open https://localhost:highport/  
+Az ArgoCD szerver szolgáltatás eléréséhez módosítsd annak típusát
+NodePort-ra:
 
-the default user is admin  
+```
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+```
 
-We will need for admin passwd to get run the following command  
+### 4. NodePort port meghatározása
 
-with bash:  
-```  
+A kiosztott NodePort port megtekintéséhez futtasd az alábbi parancsot:
+
+```
+kubectl get svc -n argocd argocd-server
+```
+
+Példa kimenet:
+
+    NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+    argocd-server   NodePort   10.43.97.127   <none>        80:32489/TCP,443:32583/TCP   8m4s
+
+Ebben az esetben az alkalmazás HTTPS-en a magasabb porton érhető el:
+
+    https://localhost:<NodePort>
+
+### 5. Alapértelmezett bejelentkezési adatok
+
+-   Felhasználónév: `admin`
+
+Az admin jelszó lekérdezéséhez az alábbi parancs használható.
+
+#### Bash környezetben
+
+```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-```  
+```
 
-with powershell:  
-```  
+#### PowerShell környezetben
+
+```
 $pass = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"
 [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pass))
-```  
+```
 
-To create deployment run  
-```  
-kubectl apply -f argocd-app.yaml  
-```  
+### 6. Deployment létrehozása ArgoCD alkalmazáshoz
+
+Egy ArgoCD alkalmazás létrehozásához alkalmazd a konfigurációs fájlt:
+
+``` 
+kubectl apply -f argocd-app.yaml
+```
