@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-init-data
+data:
+  albums.json: |
+    [
+      {
+        "_id": { "$oid": "699849bcab6888c7e990e896" },
+        "Title": "The Dark Side of the Moon",
+        "Artist": "Pink Floyd",
+        "Year": 1973,
+        "Genre": "Progressive Rock",
+        "Tracks": [
+          { "Title": "Speak to Me", "Length": "1:30" },
+          { "Title": "Breathe", "Length": "2:43" },
+          { "Title": "On the Run", "Length": "3:45" },
+          { "Title": "Time", "Length": "6:53" },
+          { "Title": "The Great Gig in the Sky", "Length": "4:44" },
+          { "Title": "Money", "Length": "6:22" },
+          { "Title": "Us and Them", "Length": "7:49" },
+          { "Title": "Any Colour You Like", "Length": "3:26" },
+          { "Title": "Brain Damage", "Length": "3:50" },
+          { "Title": "Eclipse", "Length": "2:03" }
+        ]
+      },
+      {
+        "_id": { "$oid": "699849c7ab6888c7e990e898" },
+        "Title": "Back in Black",
+        "Artist": "AC/DC",
+        "Year": 1980,
+        "Genre": "Hard Rock",
+        "Tracks": [
+          { "Title": "Hells Bells", "Length": "5:12" },
+          { "Title": "Shoot to Thrill", "Length": "5:17" },
+          { "Title": "What Do You Do for Money Honey", "Length": "3:36" },
+          { "Title": "Given the Dog a Bone", "Length": "3:31" },
+          { "Title": "Let Me Put My Love Into You", "Length": "4:15" },
+          { "Title": "Back in Black", "Length": "4:15" },
+          { "Title": "You Shook Me All Night Long", "Length": "3:30" },
+          { "Title": "Have a Drink on Me", "Length": "3:57" },
+          { "Title": "Shake a Leg", "Length": "4:06" },
+          { "Title": "Rock and Roll Ain't Noise Pollution", "Length": "4:15" }
+        ]
+      },
+      {
+        "_id": { "$oid": "699849d0ab6888c7e990e89a" },
+        "Title": "Nevermind",
+        "Artist": "Nirvana",
+        "Year": 1991,
+        "Genre": "Grunge",
+        "Tracks": [
+          { "Title": "Smells Like Teen Spirit", "Length": "5:01" },
+          { "Title": "In Bloom", "Length": "4:15" },
+          { "Title": "Come As You Are", "Length": "3:38" },
+          { "Title": "Breed", "Length": "3:03" },
+          { "Title": "Lithium", "Length": "4:17" },
+          { "Title": "Polly", "Length": "2:57" },
+          { "Title": "Territorial Pissings", "Length": "2:22" },
+          { "Title": "Drain You", "Length": "3:44" },
+          { "Title": "Lounge Act", "Length": "2:36" },
+          { "Title": "Stay Away", "Length": "3:32" },
+          { "Title": "On a Plain", "Length": "3:16" },
+          { "Title": "Something in the Way", "Length": "3:52" }
+        ]
+      },
+      {
+        "_id": { "$oid": "69984a14ab6888c7e990e89c" },
+        "Title": "Violator",
+        "Artist": "Depeche Mode",
+        "Year": 1990,
+        "Genre": "Synth-pop",
+        "Tracks": [
+          { "Title": "World in My Eyes", "Length": "4:26" },
+          { "Title": "Sweetest Perfection", "Length": "4:43" },
+          { "Title": "Personal Jesus", "Length": "4:56" },
+          { "Title": "Halo", "Length": "4:30" },
+          { "Title": "Waiting for the Night", "Length": "6:07" },
+          { "Title": "Enjoy the Silence", "Length": "6:12" },
+          { "Title": "Policy of Truth", "Length": "4:55" },
+          { "Title": "Blue Dress", "Length": "4:29" },
+          { "Title": "Clean", "Length": "5:32" }
+        ]
+      },
+      {
+        "_id": { "$oid": "69984a1fab6888c7e990e89e" },
+        "Title": "Metallica",
+        "Artist": "Metallica",
+        "Year": 1991,
+        "Genre": "Heavy Metal",
+        "Tracks": [
+          { "Title": "Enter Sandman", "Length": "5:31" },
+          { "Title": "Sad but True", "Length": "5:24" },
+          { "Title": "Holier Than Thou", "Length": "3:47" },
+          { "Title": "The Unforgiven", "Length": "6:27" },
+          { "Title": "Wherever I May Roam", "Length": "6:44" },
+          { "Title": "Don't Tread on Me", "Length": "4:00" },
+          { "Title": "Through the Never", "Length": "4:04" },
+          { "Title": "Nothing Else Matters", "Length": "6:28" },
+          { "Title": "Of Wolf and Man", "Length": "4:16" },
+          { "Title": "The God That Failed", "Length": "5:05" },
+          { "Title": "My Friend of Misery", "Length": "6:49" },
+          { "Title": "The Struggle Within", "Length": "3:53" }
+        ]
+      },
+      {
+        "_id": { "$oid": "69984a27ab6888c7e990e8a0" },
+        "Title": "Thriller",
+        "Artist": "Michael Jackson",
+        "Year": 1982,
+        "Genre": "Pop",
+        "Tracks": [
+          { "Title": "Wanna Be Startin' Somethin'", "Length": "6:03" },
+          { "Title": "Baby Be Mine", "Length": "4:20" },
+          { "Title": "The Girl Is Mine", "Length": "3:42" },
+          { "Title": "Thriller", "Length": "5:57" },
+          { "Title": "Beat It", "Length": "4:18" },
+          { "Title": "Billie Jean", "Length": "4:54" },
+          { "Title": "Human Nature", "Length": "4:06" },
+          { "Title": "P.Y.T. (Pretty Young Thing)", "Length": "3:59" },
+          { "Title": "The Lady in My Life", "Length": "4:59" }
+        ]
+      },
+      {
+        "_id": { "$oid": "69985a98ab6888c7e990e8a4" },
+        "Title": "Appetite for Destruction",
+        "Artist": "Guns N' Roses",
+        "Year": 1987,
+        "Genre": "Hard Rock",
+        "Tracks": [
+          { "Title": "Welcome to the Jungle", "Length": "4:34" },
+          { "Title": "It's So Easy", "Length": "3:23" },
+          { "Title": "Nightrain", "Length": "4:28" },
+          { "Title": "Out ta Get Me", "Length": "4:24" },
+          { "Title": "Mr. Brownstone", "Length": "3:49" },
+          { "Title": "Paradise City", "Length": "6:46" },
+          { "Title": "My Michelle", "Length": "3:39" },
+          { "Title": "Think About You", "Length": "3:50" },
+          { "Title": "Sweet Child o' Mine", "Length": "5:56" },
+          { "Title": "You're Crazy", "Length": "3:17" },
+          { "Title": "Anything Goes", "Length": "3:25" },
+          { "Title": "Rocket Queen", "Length": "6:13" }
+        ]
+      }
+    ]
