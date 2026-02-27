@@ -2,7 +2,7 @@ name: Frontend Build and Push to ghcr
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths:
       - 'frontend/**'                  # Csak ha a frontend kódja változik
       - '.github/workflows/frontend-ci.yml' # Vagy ha ezt a scriptet módosítod
