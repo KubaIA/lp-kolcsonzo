@@ -1,4 +1,4 @@
-name: Frontend Build and Push
+name: Frontend Build and Push to ghcr
 
 on:
   push:
