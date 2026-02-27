@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: lp-backend
-        image: ghcr.io/05zhalasi/lp-backend:latest
+        image: ghcr.io/kubaia/lp-backend:latest
         ports:
         - containerPort: 8080
         env:
