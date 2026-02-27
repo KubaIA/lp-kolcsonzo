@@ -30,4 +30,4 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/kubaia/lp-frontend:latest
+          tags: ghcr.io/kubaia/lp-backend:latest
