@@ -22,7 +22,7 @@ Az ArgoCD szerver szolgáltatás eléréséhez módosítsd annak típusát
 NodePort-ra:
 
 ```
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+kubectl patch svc argocd-server -n argocd -p '{\"spec\": {\"type\": \"NodePort\"}}'
 ```
 
 ### 4. NodePort port meghatározása
