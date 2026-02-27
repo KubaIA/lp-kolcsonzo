@@ -1,59 +1,38 @@
-# LP Kölcsönző – Fullstack alkalmazás
-Ez a projekt egy egyszerű albumkölcsönző rendszer, amely három fő részből áll:
+# LP Kölcsönző – Cloud-Native Fullstack Alkalmazás
+Ez a projekt egy modern, konténerizált albumkölcsönző rendszer, amely a legújabb GitOps és Cloud-Native irányelveket követi.
 
-- **Backend** – ASP.NET 8 Web API  
-- **Frontend** – Angular 17  
-- **Adatbázis** – MongoDB (lokálisan fut)
-
+## 🚀 Technológiai Stack
+Backend: ASP.NET 8 Web API
+Frontend: Angular 17 + Bootstrap 5
+Adatbázis: MongoDB (Persistence-szel ellátva)
+Infrastruktúra: Kubernetes (K8s)
+CI/CD: GitHub Actions (Path-based filteringgel)
+Folyamatos telepítés (CD): ArgoCD (GitOps)
 A cél egy alap CRUD alkalmazás, ahol albumokat lehet listázni, megtekinteni, létrehozni, módosítani és törölni.
 
 ---
 
 ## 📁 Projekt szerkezete
-A projekt egy közös mappában található, így könnyen kezelhető és dockerizálható.
-
+```
 lp-kolcsonzo/
-│
-├── backend/        # .NET 8 Web API backend
-│
-├── frontend/     # Angular 17 frontend
-│
-├── database/
-│   └── sample-data/
-│       └── albums.json        # Exportált MongoDB mintakollekció
-│
-└── infra/
-├── docker/                # Dockerfile-ok (üres, a fejlesztőtárs tölti meg)
-└── k8s/                   # Kubernetes fájlok (szintén üres)
-
+├── .github/workflows/   # CI/CD: Külön Build & Push (Frontend & Backend)
+├── argocd/              # ArgoCD Bootstrap és telepítő fájlok
+├── backend/             # .NET 8 Web API + Dockerfile
+├── frontend/            # Angular 17 + Dockerfile
+├── k8s/                 # Kubernetes Deployment, Service és Config fájlok
+│   ├── mongodb.yaml     # Perzisztens adatbázis réteg
+│   ├── backend.yaml     # Skálázott (3 replika) backend
+│   └── frontend.yaml    # Skálázott (3 replika) frontend
+└── README.md
+```
 ---
 
-## 🗄️ Adatbázis (MongoDB)
-A projekt MongoDB-t használ, lokálisan futtatva.
+## 🏗️ Infrastruktúra és Skálázhatóság
+A projekt már nem csak lokálisan futtatható, hanem egy teljes értékű Kubernetes klaszterre van optimalizálva:
 
-- **Host:** `mongodb://localhost:27017`
-- **Adatbázis neve:** `lpdb`
-- **Collection neve:** `albums`
-
-A `database/sample-data/albums.json` fájl tartalmaz egy exportált mintakollekciót, amely Compass segítségével importálható.
-
----
-
-## ▶️ Backend futtatása
-A backend egy ASP.NET 8 Web API.
-
-### Követelmények:
-- .NET 8 SDK
-- MongoDB fut a gépen
-
-### Indítás:
-cd backend
-dotnet restore
-dotnet run
-
-A backend alapértelmezett címe:
-http://localhost:5146
-
+- Magas rendelkezésre állás (HA): Mind a Frontend, mind a Backend 3-3 példányban (replika) fut, így a rendszer hibatűrő.
+- Adatbiztonság: A MongoDB adatait PersistentVolume tárolja, így a podok újraindulása után is megmaradnak a kölcsönzési adatok.
+- Automatikus Seed: Az adatbázis az induláskor automatikusan feltöltődik a mintadatokkal egy InitContainer segítségével.
 ---
 
 ## 🌐 API végpontok
@@ -69,55 +48,36 @@ A backend minimál API-t használ, az elérhető végpontok:
 
 ---
 
-## 💻 Frontend futtatása
-A frontend Angular 17 alapú, Bootstrap 5-tel.
+## 🤖 CI/CD és GitOps
+1. Folyamatos integráció (GitHub Actions)
+A rendszer két különálló build folyamatot használ, amelyek csak akkor futnak le, ha a hozzájuk tartozó forráskód változik (Path Filtering). Ha csak a README-t vagy a Kubernetes konfiguráció kerül módosításra, nem történik felesleges Build.
 
-### Követelmények:
-- Node.js + npm
-- Angular CLI (opcionális)
+2. Folyamatos telepítés (ArgoCD)
+A rendszer a GitOps elvet követi. Az argocd/ mappában található konfiguráció összeköti a GitHub repót a klaszterrel.
 
-### Indítás:
-cd frontend
-npm install
-npm start
-
-A frontend elérhető lesz:
-http://localhost:4200/
-
----
-
-## 📦 Mintakollekció importálása (opcionális)
-
-Ha szeretnéd feltölteni a MongoDB-t a mellékelt adatokkal:
-
-1. Nyisd meg a **MongoDB Compass**-t  
-2. Válaszd ki az adatbázist: `lpdb`  
-3. Válaszd ki a collectiont: `albums`  
-4. Kattints: **Import Collection**  
-5. Tallózd be:  
-database/sample-data/albums.json
-
----
+- Auto-Sync: Minden Git push után az ArgoCD automatikusan frissíti a klaszter állapotát.
+- Self-Healing: Ha manuális módosítás történik a klaszterben, az ArgoCD azonnal visszaállítja a Git-ben leírt állapotot.
 
 ## 📝 Megjegyzések
 
 - A projekt célja egy egyszerű CRUD alkalmazás bemutatása.
 - A backend és frontend külön mappában található, de egy közös repóban.
-- Az `infra/` mappa üres, a konténerizálást és Kubernetes fájlokat a fejlesztőtárs fogja elkészíteni.
 - A kód nem tartalmaz túlzott kommentelést, csak a szükséges részeket.
+- Az alkalmazás most már teljesen automatizált: a kódtól a felhőig minden egyetlen git push-sal kezelhető.
+- Az infrastrukturális réteg (k8s/ és argocd/) elválik az alkalmazás logikájától.
 
 ---
+## ▶️ Telepítés Kubernetes alá (ArgoCD-vel)
+Ha rendelkezésre áll egy futó Kubernetes klaszter (pl. Rancher Desktop, Docker Desktop vagy minikube).
+ArgoCD telepítése:
+Kövesd az argocd/README.md-ben leírtakat a vezérlő telepítéséhez.
+Alkalmazás indítása:
 
-## ✔️ Összefoglalás
+```
+kubectl apply -f argocd/argocd-app.yaml  
+```  
+Elérhetőség:  
+Az alkalmazás a NodePort beállítások után a http://localhost címen érhető el.
 
-A projekt készen áll arra, hogy:
-
-- továbbfejlesszék,
-- dockerizálják,
-- Kubernetes környezetbe helyezzék,
-- vagy CI/CD pipeline-ba kössék.
-
-A backend, frontend és adatbázis külön-külön is futtatható, de együtt adják ki a teljes alkalmazást.
-
-Készítette: 
-JLCQOR, ZVATRS 2026
+Készítette:
+ZVATRS, JLCQOR 2026
