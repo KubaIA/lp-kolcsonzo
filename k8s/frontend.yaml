@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: lp-frontend
-        image: ghcr.io/05zhalasi/lp-frontend:latest
+        image: ghcr.io/kubaia/lp-frontend:latest
         ports:
         - containerPort: 80
