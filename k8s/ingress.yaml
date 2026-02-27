@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lp-ingress
+  annotations:
+    # Marad a webes belépési pont
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    # Itt mondjuk meg neki, hogy használja a fenti Middleware-t
+    # Formátum: névtér-név@provider
+    traefik.ingress.kubernetes.io/router.middlewares: default-strip-api@kubernetescrd
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: lp-backend
+            port:
+              number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: lp-frontend
+            port:
+              number: 80

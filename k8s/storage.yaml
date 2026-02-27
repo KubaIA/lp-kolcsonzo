@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-data-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path # Ez az, amit a Rancherben láttál!
+  resources:
+    requests:
+      storage: 1Gi

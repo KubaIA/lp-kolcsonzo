@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lp-frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: lp-frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lp-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lp-frontend
+  template:
+    metadata:
+      labels:
+        app: lp-frontend
+    spec:
+      containers:
+      - name: lp-frontend
+        image: ghcr.io/05zhalasi/lp-frontend:latest
+        ports:
+        - containerPort: 80

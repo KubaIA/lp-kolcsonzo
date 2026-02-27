@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lp-backend
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: lp-backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lp-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lp-backend
+  template:
+    metadata:
+      labels:
+        app: lp-backend
+    spec:
+      containers:
+      - name: lp-backend
+        image: ghcr.io/05zhalasi/lp-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ConnectionStrings__MongoDb
+          value: "mongodb://mongodb:27017"
+        - name: DatabaseName
+          value: "lpdb"
